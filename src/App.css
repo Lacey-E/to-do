@@ -1,0 +1,13 @@
+.app{
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  list-style: none;
+}
