@@ -1,117 +1,64 @@
 import { useEffect, useRef, useState } from "react"
+import ProductCard from "./ProductCard";
 
 function App() {
-const [count, setCount] = useState(0)
-
-const [product, setProduct] = useState([]); 
 
 
-let isIgnored = false;
-const  inputRef = useRef(null)
-
-useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
-              .then(res => res.json())
-              
-              .then(json => setProduct(json))
-           
-            
-           
-  
-
-  //  //Cleanup function helps to make useeffect run only once 
-  //  if(!isIgnored) getProduct();
-  //  return () => {
-  //    isIgnored = true
-     
-  //  }
-  
-}, [])
-
-localStorage.setItem("key", "value")
-
-useEffect(() => {
-  localStorage.setItem('count', (count));
-}, [count]);
+  const [products, setProducts] = useState([]);
 
 
 
-// useEffect(() => {
-//   const items = JSON.parse(localStorage.setItem('count'));
-//   if (count) {
-//    setItems(count);
-//   }
-// }, []);
+  useEffect(() => {
+    const controller = new AbortController()
+
+    const FetchData = async () => {
+      try {
+        const response = await fetch('https://fakestoreapi.com/products', {signal: controller.signal})
+        const data = await response.json()
+        setProducts(data)
+        
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
+
+    FetchData()
+
+    return () => {
+      controller.abort()
+    }
+   
 
 
+  }, [])
 
-
-
-
-// useEffect(() => {
-//   const Run = (
-    
-//   ) => {
-  
-//     let users = ['sam', 'esty', 'jj']
-//   for (const item of users) {
-//     console.log(item)
-//     getProduct()
-//   }
-//   }
-//   //Cleanup function helps to make useeffect run only once 
-//   if(!isIgnored) Run();
-//   return () => {
-//     isIgnored = true
-//   }
-  
-//   //Using the square bracket means the useEffect won't run when a state changes
-//   // Optionally you can set the state you want to rerender by addingg it to the useEffect dependency which
-//   //is the square bracket
-//   }, []);
-  
-const getValue = () => {
-//  console.log(inputRef.current.value); Use to log value
-
-inputRef.current.click()
-}
-
+console.log(products);
 
   return (
 
     <div className="App">
-      
-      <h1>Cart {count}</h1>
+<h1>Esther</h1>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+       
+{products.map((product, index) => {
 
-     <button >Increase</button>
-     <input type="file" hidden ref={inputRef} />
+<ProductCard key={index} 
+image={product.image} 
+price={product.price}
+ rating={product.rating.rate}
+ description={product.description} />
 
-     <button onClick={getValue}>Submit</button>
+})}
+
+
+        </div>
 
 
 
 
-<div classname="container py-5">
-    <div classname="row">
-
-    <ul className="list-unstyled col-md-12 col-lg-4 mb-4 mb-lg-0" >
-  {product.map(product => (
-    
-
-    
-        <li key={product.id} className="card-body" >
-
-      <img src={product.image} className=""  alt={product.title} style={{height:'80px'}}/>
-      <h3 className="card-title">{product.title}</h3>
-      <button className="btn btn-success" onClick={() => setCount(prev => prev + 1)}>Add to cart</button>
-      
-    </li>
-  ))}
-</ul>
-        
-    </div>
-
-</div>
+        </div>
+     
 
 
 
@@ -125,10 +72,9 @@ inputRef.current.click()
 
 
 
+  
 
-    </div>
 
-    
   )
 }
 
