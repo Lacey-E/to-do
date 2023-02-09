@@ -38,10 +38,9 @@ console.log(products);
   return (
 
     <div className="App">
-<h1>Esther</h1>
       <div className="row row-cols-1 row-cols-md-3 g-4">
        
-{products.map((product, index) => {
+{products.map((product, index) => 
 
 <ProductCard key={index} 
 image={product.image} 
@@ -49,7 +48,7 @@ price={product.price}
  rating={product.rating.rate}
  description={product.description} />
 
-})}
+)}
 
 
         </div>

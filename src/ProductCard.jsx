@@ -1,9 +1,9 @@
  import {Rate } from "antd"
 
- const ProductCard = ({
-    image, rating, title, description, price}) => {
-return(
-<div>
+const ProductCard = ({image, rating, title, description, price}) => { 
+      return (  
+  
+  <div>
 <h1>Card</h1>
 <div classname="card">
 
@@ -18,10 +18,7 @@ return(
       </div>
     </div>
 </div>
-
-
-)
-
-    }
-
-    export default ProductCard
+      )
+  }
+  
+  export default ProductCard;
